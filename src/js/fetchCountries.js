@@ -63,26 +63,3 @@ function renderCountryCardName(country) {
 function clearContainer() {
   refs.cardContainerRef.innerHTML = '';
 }
-
-// what markup to render
-// function renderManipulation(data) {
-//   if (data.length > 10) {
-//     error({
-//       title: `Too many matches found.`,
-//       text: `We found ${data.length} countries. Please enter a more specific query!`,
-//       delay: 2000,
-//     });
-//   } else if (data.length > 2 && data.length < 10) {
-//     renderCountryCardName(data);
-//   } else if (data.length === 1) {
-//     renderCountryCard(data);
-//   } else {
-//     error({
-//       title: `We didn’t find such a country.`,
-//       text: `Please check the correctness of the data entered and try again.`,
-//       delay: 2000,
-//     });
-//   }
-
-// switch ?
-// }
