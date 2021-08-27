@@ -23,28 +23,29 @@ refs.inputRef.addEventListener('input', debounce(onInput, 500));
 
 function onInput(e) {
   e.preventDefault();
-
   const form = e.target.value; //запрос который вводят
-  // console.log(inputRef.value === form);
+  let trimForm = form.trim();
 
-  // if (form !== null) { // error
-  if (form !== '') {
-    fetchCountryName(form)
-      .then(data => {
-        renderManipulation(data);
-      })
-      .catch(err => console.error(err));
-    // .finally(() => formInputRef.reset()); // др.вар. - очистка инпута
+  if (!trimForm) {
+    clearContainer();
+    return;
   }
-}
 
-
-
-// функция возвращает результат фетча( - прOмис) с распарсенными данными
-function fetchCountryName(name) {
-  return fetch(`https://restcountries.eu/rest/v2/name/${name}`).then(response => {
-    return response.json();
-  });
+  API.fetchCountryName(trimForm)
+    .then(response => {
+      if (response.length === 1) {
+        renderCountryCard(response);
+      } else if (response.length > 2 && response.length < 10) {
+        renderCountryCardName(response);
+      } else {
+        error({
+          title: `We didn’t find such a country.`,
+          text: `Please check the correctness of the data entered and try again.`,
+          delay: 2000,
+        });
+      }
+    })
+    .catch(error => console.log(error));
 }
 
 // render card with all info
@@ -59,25 +60,29 @@ function renderCountryCardName(country) {
   refs.cardContainerRef.innerHTML = markup;
 }
 
-// what markup to render
-function renderManipulation(data) {
-  if (data.length > 10) {
-    error({
-      title: `Too many matches found.`,
-      text: `We found ${data.length} countries. Please enter a more specific query!`,
-      delay: 2000,
-    });
-  } else if (data.length > 2 && data.length < 10) {
-    renderCountryCardName(data);
-  } else if (data.length === 1) {
-    renderCountryCard(data);
-  } else {
-    error({
-      title: `We didn’t find such a country.`,
-      text: `Please check the correctness of the data entered and try again.`,
-      delay: 2000,
-    });
-  }
-
-  // switch ?
+function clearContainer() {
+  refs.cardContainerRef.innerHTML = '';
 }
+
+// what markup to render
+// function renderManipulation(data) {
+//   if (data.length > 10) {
+//     error({
+//       title: `Too many matches found.`,
+//       text: `We found ${data.length} countries. Please enter a more specific query!`,
+//       delay: 2000,
+//     });
+//   } else if (data.length > 2 && data.length < 10) {
+//     renderCountryCardName(data);
+//   } else if (data.length === 1) {
+//     renderCountryCard(data);
+//   } else {
+//     error({
+//       title: `We didn’t find such a country.`,
+//       text: `Please check the correctness of the data entered and try again.`,
+//       delay: 2000,
+//     });
+//   }
+
+// switch ?
+// }
