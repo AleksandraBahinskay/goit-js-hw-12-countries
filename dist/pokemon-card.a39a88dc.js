@@ -2253,15 +2253,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-const BASE_URL = "https://pokeapi.co/api/v2"; // функция возвращает результат фетча( - промис) с распарсенными данными
+const BASE_URL = 'https://restcountries.eu/rest/v2'; // функция возвращает результат фетча( - промис) с распарсенными данными
 
-function fetchPokemon(pokemonId) {
-  const url = `${BASE_URL}/pokemon/${pokemonId}`;
-  return fetch(url).then(response => response.json());
+function fetchCountryName(name) {
+  return fetch(`${BASE_URL}/name/${name}`).then(response => {
+    return response.json();
+  });
 }
 
 var _default = {
-  fetchPokemon
+  fetchCountryName
 };
 exports.default = _default;
 },{}],"js/get-refs.js":[function(require,module,exports) {
@@ -2274,8 +2275,8 @@ exports.default = getRefs;
 
 function getRefs() {
   return {
-    cardContainer: document.querySelector(".js-card-container"),
-    searchForm: document.querySelector(".js-search-form")
+    inputRef: document.getElementById('input'),
+    cardContainerRef: document.getElementById('js-card-container')
   };
 }
 },{}],"js/pokemon-card.js":[function(require,module,exports) {
@@ -2343,7 +2344,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53964" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60822" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

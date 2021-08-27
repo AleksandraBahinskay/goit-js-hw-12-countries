@@ -1,10 +1,11 @@
-const BASE_URL = "https://pokeapi.co/api/v2";
+const BASE_URL = 'https://restcountries.eu/rest/v2';
 
 // функция возвращает результат фетча( - промис) с распарсенными данными
-function fetchPokemon(pokemonId) {
-  const url = `${BASE_URL}/pokemon/${pokemonId}`;
-
-  return fetch(url).then((response) => response.json());
+function fetchCountryName(name) {
+  return fetch(`${BASE_URL}/name/${name}`).then(response => {
+    return response.json();
+  });
 }
 
-export default { fetchPokemon };
+
+export default { fetchCountryName };

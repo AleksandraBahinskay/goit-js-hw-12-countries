@@ -1,6 +1,6 @@
 export default function getRefs() {
   return {
-    cardContainer: document.querySelector(".js-card-container"),
-    searchForm: document.querySelector(".js-search-form"),
+    inputRef: document.getElementById('input'),
+    cardContainerRef: document.getElementById('js-card-container'),
   };
 }
